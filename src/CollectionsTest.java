@@ -6,8 +6,9 @@ public class CollectionsTest {
     public static void collectionsTest(String[] args) {
         List<String> list = new ArrayList<>();
         Collections.addAll(list,"shiny","daisy","raining");
-        Collections.sort(list);
+        //反转元素
         Collections.reverse(list);
+        Collections.sort(list);
         Collections.sort(list, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -58,6 +59,5 @@ public class CollectionsTest {
         List<Time> list = new ArrayList<>(Arrays.asList(new Time("3", "3"), new Time("1", "1")));
         List<Time> list1 = Arrays.asList(new Time("3", "3"), new Time("1", "1"));
         Arrays.asList(new Time("3", "3"), new Time("1", "1")).stream().collect(Collectors.toList());
-
     }
 }

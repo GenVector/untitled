@@ -1,3 +1,6 @@
+package codetest;
+
+
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.stream.IntStream;
 
 class PasswordUtils {
 
+
     @UseCase(id = 47, description =
             "Passwords must contain at least one numeric")
     public boolean validatePassword(String passwd) {
@@ -39,8 +43,7 @@ class PasswordUtils {
         return !prevPasswords.contains(passwd);
     }
 }
-
-class UseCaseTracker {
+ class UseCaseTracker {
     public static void trackUseCases(List<Integer> useCases, Class<?> cl) {
         for (Method m : cl.getDeclaredMethods()) {
             UseCase uc = m.getAnnotation(UseCase.class);
@@ -62,5 +65,8 @@ class UseCaseTracker {
 }
 
 public class AnnotationTest {
+    private class AnnotationImp{
+
+    }
 
 }

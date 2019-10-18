@@ -1,3 +1,5 @@
+package fileTest;
+
 import java.io.*;
 
 public class FileToDB {

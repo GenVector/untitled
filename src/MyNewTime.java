@@ -12,7 +12,7 @@ public class MyNewTime extends MyTime {
 
     public static void main(String[] args) {
         MyNewTime myNewTime = new MyNewTime("shiny", "live");
-        Time time = (Time) myNewTime;
+        Time time = myNewTime;
         System.out.println(time.name);
     }
 }

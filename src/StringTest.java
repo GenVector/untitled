@@ -1,10 +1,50 @@
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Formatter;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
 
 public class StringTest {
     public static void main(String[] args) {
-        zhuanyiTest();
+        splitTest1();
     }
+
+    public static void splitTest1() {
+        String str = ";;;;;1;;";
+        String[] arr = str.split(";");
+        for (String st : arr) {
+            System.out.println(st);
+        }
+        System.out.println(str.split(";").length);
+    }
+
+    //split not throw exception,min length is 1
+    public static void splitTest() {
+        String str1 = "asdas_dsad\\as\n\t\t\td/asd[asd]asd";
+        String str = str1.split("_")[0];
+        System.out.println(str);
+        str = str1.split("\\[")[0];
+        System.out.println(str);
+        str = str1.split("\\/")[0];
+        System.out.println("----\\/:" + str);
+        str = str1.split("/")[0];
+        System.out.println("----/:" + str);
+        str = str1.split("\\\\")[0];
+        System.out.println(str);
+        str = str1.split("\n")[0];
+        System.out.println("----\\n:" + str);
+
+    }
+
+    //\\ test
+    public static void zhuanyiTest() {
+        System.out.println("hi shiny\thi sherry ");
+        System.out.println("hi shiny\nhi sherry ");
+    }
+
 
     //一个正确的String，一个错误的String，找出错误的位置
     public static void findErrChar(String strTrue, String strFalse) {
@@ -28,17 +68,8 @@ public class StringTest {
         return simpleDateFormat.format(date);
     }
 
-    //split not throw exception,min length is 1
-    public void splitTest() {
-        String str = "asdas_dsad";
-        String str1 = "asda";
-        str = str.split("_")[0];
-        System.out.println(str);
-    }
-
-
     //找出b插入的字符
-    public static void StrTest(){
+    public static void StrTest() {
         String a = "23221312asdafa";
         String b = "23221312Aasdafa";
         char[] charsA = a.toCharArray();
@@ -65,14 +96,34 @@ public class StringTest {
         //System.out.println(a.compareTo(b));
     }
 
+    //format test
     public static void stringFormatTest() {
         String str = "test %s %s";
         str = String.format(str, "2", "3");
         String[] strs = str.split(",");
+        PrintStream outAlias = System.out;
+        Formatter formatter = new Formatter();
+        str = "test %s %s";
+        formatter.format(str, "2", "3");
     }
 
-    public static void zhuanyiTest() {
-        System.out.println("hi shiny\thi sherry ");
-        System.out.println("hi shiny\nhi sherry ");
+    public static String format(String format, Object... args) {
+        return new Formatter().format(format, args).toString();
+    }
+
+    //lambda collectors
+    public static String string2() {
+        String result = new Random(47)
+                .ints(25, 0, 100)
+                .mapToObj(Integer::toString)
+                .collect(Collectors.joining(", "));
+        return "[" + result + "]";
+    }
+
+    public static String getPhotoUrl(String key) {
+        String md5 = "sd67dfdsgsdsdsasadasgg";
+        String url = "http://50.105.13.165:80" + "/car_image/" + md5.substring(0, 2) + "/" + md5.substring(2, 4) + "/" + key + ".jpg";
+        System.out.println(url);
+        return url;
     }
 }

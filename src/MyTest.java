@@ -25,11 +25,11 @@ public class MyTest {
         };
         int weight[] = {2, 1, 3};
         //最大子数组和
-        maxSubArrTest(arr);
+        //maxSubArrTest(arr);
         //最大字数组和2
-        maxSubArrTest2(arr);
+        //maxSubArrTest2(arr);
         //最大字数组和3
-        maxSubArrTest3(arr);
+        //maxSubArrTest3(arr);
         //时政、财经、体育输出
         productTest(items, weight);
     }
@@ -47,10 +47,17 @@ public class MyTest {
                 len = items[i].length / weight[i] + 1;
             max = Math.max(max, len);
         }
-        for (int k = 0; k < max; k++) {
-            for (int i = 0; i < weight.length; i++) {
-                for (int j = 0; j < weight[i]; j++)
-                    System.out.print(items[i][j] + " ");
+        System.out.println(items[0].length);
+        System.out.println(items[1].length);
+        System.out.println(items[2].length);
+        System.out.println(max);
+        for (int k = 1; k <= max; k++) {
+            int i = 0;
+            for (; i < weight.length; i++) {
+                int j = 0;
+                for (; j < weight[i]; j++)
+                    if (items[i].length > weight[i] * k - weight[i] + j)
+                        System.out.print(items[i][weight[i] * k - weight[i] + j] + " ");
             }
             System.out.println();
         }
@@ -97,6 +104,9 @@ public class MyTest {
                 MAX = Sum;
         }
         System.out.println(MAX);
+    }
+
+    public static void test() {
     }
 
 }

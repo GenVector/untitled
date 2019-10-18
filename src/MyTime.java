@@ -1,16 +1,28 @@
+import java.time.Instant;
+
 public class MyTime extends Time {
 
     String name;
+    String state = state();
+
+    public String state() {
+        System.out.println("mytime state");
+        //此处super.state=this.state,子类state()会替换掉父类
+        System.out.println(super.state);
+        return "mytime state";
+    }
 
     public MyTime(String name, String zt) {
         super(name, zt);
+        System.out.println("MyTime init");
         this.name = name;
     }
 
     public String getThisName() {
         return name;
     }
-    public String getSuperName(){
+
+    public String getSuperName() {
         return super.getName();
     }
 
@@ -41,10 +53,18 @@ public class MyTime extends Time {
 //        myExtend.name = "eee";
 //        System.out.println(myExtend.name);
         MyTime myTime = new MyTime("father", "healthy");
-        myTime.name = "son";
-        System.out.println(myTime.getSuperName());
-        System.out.println(myTime.getThisName());
-        System.out.println(myTime.getZt());
-        System.out.println(myTime.getSuperZt());
+        Time time = (Time) myTime;
+        System.out.println(myTime.state);
+        System.out.println(time.state);
+        System.out.println(time.state);
+//        myTime.name = "son";
+//        System.out.println(myTime.getSuperName());
+//        System.out.println(myTime.getThisName());
+//        System.out.println(myTime.getZt());
+//        System.out.println(myTime.getSuperZt());
+
+        long t = 950400000L;
+        Instant instant=Instant.now().minusMillis(t);
+        System.out.println(instant);
     }
 }
