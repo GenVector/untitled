@@ -53,7 +53,7 @@ class PasswordUtils {
                 useCases.remove(Integer.valueOf(uc.id()));
             }
         }
-        useCases.forEach(i ->
+        useCases.stream().forEach(i ->
                 System.out.println("Missing use case " + i));
     }
 

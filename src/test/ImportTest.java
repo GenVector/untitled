@@ -1,5 +1,6 @@
 package test;
 
+import gc.GCTest;
 import gsy.com.*;
 
 public class ImportTest {
@@ -9,6 +10,6 @@ public class ImportTest {
         Imp.str = "str";
         System.out.println(Imp.str);
         GCTest gcTest=new GCTest();
-        gcTest.test();
+        gcTest.test(0);
     }
 }

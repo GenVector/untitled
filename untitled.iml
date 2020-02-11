@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lombok-1.16.16" level="project" />
     <orderEntry type="library" name="hello" level="project" />
+    <orderEntry type="library" name="cglib-3.3.0" level="project" />
   </component>
 </module>
