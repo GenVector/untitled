@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 
 import static com.sun.deploy.util.BufferUtil.MB;
 
+//-Xmx20M -XX:MaxDirectMemorySize=10M
+
 public class DirectMemoryOOM {
 
     private static final int _1MB = 1024 * 1024;
