@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="hello">
+    <CLASSES>
+      <root url="jar://E:/jar/hello.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://E:/jar/hello.jar!/" />
+    </SOURCES>
+  </library>
+</component>
