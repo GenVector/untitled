@@ -1,4 +1,4 @@
-package fileTest;
+package fileTest.nio;
 
 import java.nio.file.*;
 import java.net.URI;

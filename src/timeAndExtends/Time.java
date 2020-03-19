@@ -1,16 +1,11 @@
 package timeAndExtends;
 
-import codetest.AnnotationTest;
-
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.*;
 
 public class Time {
 
     protected String name;
-    public String zt = zt();
 
     public String state = state();
 
@@ -19,36 +14,32 @@ public class Time {
         return "time state";
     }
 
-    public String zt() {
-        System.out.println("time zt");
-        return "zt";
+    public String getState() {
+        return state;
     }
 
-    public Time(String name, String zt) {
+    public Time(String name, String state) {
         this();
         System.out.println("time init");
-        this.name = "no one";
-        this.zt = zt;
+        this.name = name;
+        this.state = state;
     }
 
     public Time() {
-        name = "";
-    }
-
-    public String getZt() {
-        return this.zt;
+        name = "time";
     }
 
     public String getName() {
         return this.name;
     }
 
-    public static void main(String args[])  throws Exception{
+    public static void main(String args[]) throws Exception {
 
         timeTest();
     }
 
-    public static void timeTest() throws Exception{
+
+    public static void timeTest() throws Exception {
         //10位
         long t1 = Instant.now().getEpochSecond();
         //13位
@@ -79,7 +70,7 @@ public class Time {
 
         //Object nDate = new Date(timeStr);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        Instant instant =Instant.ofEpochMilli(simpleDateFormat.parse(timeStr).getTime());
+        Instant instant = Instant.ofEpochMilli(simpleDateFormat.parse(timeStr).getTime());
         System.out.println(instant);
 //        System.out.println((new Date().getTime() - (ins.toEpochMilli() - 3600000L * 72L)) / (1000 * 60 * 60));
     }

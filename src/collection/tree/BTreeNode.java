@@ -1,4 +1,4 @@
-package collection;
+package collection.tree;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

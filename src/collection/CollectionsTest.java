@@ -1,6 +1,6 @@
 package collection;
 
-import test.MyTest;
+import codeTest.MyTest;
 import timeAndExtends.Time;
 
 import java.util.*;

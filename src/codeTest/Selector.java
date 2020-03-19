@@ -1,0 +1,5 @@
+package codeTest;
+
+
+interface Sorted {
+}

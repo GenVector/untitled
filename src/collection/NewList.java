@@ -2,6 +2,8 @@ package collection;
 
 import java.util.Stack;
 
+
+//两个栈实现一个队列
 public class NewList<T> {
     Stack<T> stack1 = new Stack<>();
     Stack<T> stack2 = new Stack<>();

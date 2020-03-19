@@ -41,7 +41,7 @@ class FruitGenerator<T> extends Generator<T> {
     }
 
     public static void main() {
-        FruitGenerator<String> fruitGenerator = new FruitGenerator<String>("test");
+        FruitGenerator<String> fruitGenerator = new FruitGenerator<String>("codeTest");
     }
 }
 

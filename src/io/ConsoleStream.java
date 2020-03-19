@@ -94,8 +94,8 @@ public class ConsoleStream extends ByteArrayOutputStream {
             //设置新的输出流
             System.setOut(new PrintStream(newStream));
             //System.out.write("test".getBytes());
-            System.out.println("test");
-            System.out.println("test");
+            System.out.println("codeTest");
+            System.out.println("codeTest");
         } catch (Exception e) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream out = new PrintStream(baos);

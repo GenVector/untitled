@@ -14,13 +14,17 @@ public class MyTime extends Time {
         return "mytime state";
     }
 
-    public MyTime(String name, String zt) {
-        super(name, zt);
-        System.out.println("MyTime init");
-        this.name = name;
+    public MyTime() {
+        name = "my time";
     }
 
-    public String getThisName() {
+    public MyTime(String name, String state) {
+        System.out.println("MyTime init");
+        this.name = name;
+        this.state = state;
+    }
+
+    public String getName() {
         return name;
     }
 
@@ -28,25 +32,12 @@ public class MyTime extends Time {
         return super.getName();
     }
 
-    public String getThisName(final Time time) {
-        //final 变量无法 更新引用
-        //time = new Time();
-        return name;
+    public String getSuperState() {
+        return super.state();
     }
 
-    public String getThisName(final int time) {
-        //time = 3;
-        return name;
-    }
-
-    //override注解只是帮助你检查合法性,此时你仍然可以通过super访问到父类方法
-    @Override
-    public String getZt() {
-        return "init";
-    }
-
-    public String getSuperZt() {
-        return super.getZt();
+    public String getState() {
+        return state;
     }
 
     public static void main(String[] args) {
@@ -54,19 +45,22 @@ public class MyTime extends Time {
 //        myExtend.name = "test";
 //        myExtend.name = "eee";
 //        System.out.println(myExtend.name);
-        MyTime myTime = new MyTime("father", "healthy");
+        MyTime myTime = new MyTime("my time", "my time state");
         Time time = (Time) myTime;
+        System.out.println("-------------");
         System.out.println(myTime.state);
+        System.out.println(myTime.name);
         System.out.println(time.state);
-        System.out.println(time.state);
+        System.out.println(time.name);
+        System.out.println(time.state());
 //        myTime.name = "son";
-//        System.out.println(myTime.getSuperName());
+       System.out.println(myTime.getSuperName());
 //        System.out.println(myTime.getThisName());
 //        System.out.println(myTime.getZt());
-//        System.out.println(myTime.getSuperZt());
+        System.out.println(myTime.getSuperState());
 
-        long t = 950400000L;
-        Instant instant=Instant.now().minusMillis(t);
-        System.out.println(instant);
+//        long t = 950400000L;
+//        Instant instant = Instant.now().minusMillis(t);
+//        System.out.println(instant);
     }
 }
