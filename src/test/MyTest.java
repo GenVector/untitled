@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
+import static test.MaxSubArr.maxSubArrTest;
+import static test.MaxSubArr.maxSubArrTest2;
+import static test.MaxSubArr.maxSubArrTest3;
+
 public class MyTest {
 
     private final String param;
@@ -16,7 +20,7 @@ public class MyTest {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, -1, 15, -36, -4, -9, 13, 45, 9, 15, -1, 2};
+        int[] arr = {1, -1, 15, -36, -9, 13, 45, 9, 15, -1, 2, 4, -5, -2};
 
         String a = "23221312asdafa";
         String b = "23221312Aasdafa";
@@ -27,13 +31,14 @@ public class MyTest {
         };
         int weight[] = {2, 1, 3};
         //最大子数组和
-        //maxSubArrTest(arr);
+        maxSubArrTest(arr);
         //最大字数组和2
-        //maxSubArrTest2(arr);
+        maxSubArrTest2(arr);
         //最大字数组和3
-        //maxSubArrTest3(arr);
+        maxSubArrTest3(arr);
         //时政、财经、体育输出
-        productTest(items, weight);
+        //productTest(items, weight);
+        MaxSubArr.test(arr);
     }
 
     //时政、财经、体育输出
@@ -65,50 +70,5 @@ public class MyTest {
         }
     }
 
-    public static void maxSubArrTest(int[] arr) {
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            int sum = 0;
-            for (int j = i; j < arr.length; j++) {
-                sum += arr[j];
-                if (max < sum)
-                    max = sum;
-            }
-        }
-        System.out.println(max);
-    }
-
-    public static void maxSubArrTest2(int[] arr) {
-        if (arr == null || arr.length <= 1)
-            return;
-        int MAX = arr[0];
-        int sum = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            //如果小于0，则越加越小
-            if (sum < 0)
-                sum = arr[i];
-            else
-                sum += arr[i];
-            if (sum > MAX)
-                MAX = sum;
-        }
-        System.out.println(MAX);
-    }
-
-    public static void maxSubArrTest3(int[] arr) {
-        if (arr == null || arr.length <= 1)
-            return;
-        int Sum = arr[0];   //临时最大值
-        int MAX = arr[0];   //比较之后的最大值
-        for (int i = 1; i < arr.length; i++) {
-            Sum = Math.max(Sum + arr[i], arr[i]);
-            if (Sum >= MAX)
-                MAX = Sum;
-        }
-        System.out.println(MAX);
-    }
-
-    public static void test() {
-    }
 
 }
