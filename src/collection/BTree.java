@@ -20,7 +20,8 @@ public class BTree {
 
     public static void main(String[] args) {
         BTree bTree = NewTree();
-        afterOrder(bTree.getRoot());
+        //afterOrder(bTree.getRoot());
+        System.out.println(level(bTree.getRoot()));
         //int[][][]array=new int[1][0][-1];
     }
 
@@ -112,7 +113,7 @@ public class BTree {
             } else if (node.getRight() != null) {
                 nodeStack.push(node.getRight());
                 node = node.getRight();
-            }else {
+            } else {
                 node = nodeStack.pop();
                 System.out.println(node.getData());
             }
@@ -156,6 +157,22 @@ public class BTree {
         }
         mirrorRecursively(node.getLeft());
         mirrorRecursively(node.getRight());
+    }
+
+    //
+    public static int level(BTreeNode node) {
+        if (node == null)
+            return 0;
+
+        return Math.max(level(node.getLeft(), 1), level(node.getRight(), 1));
+
+
+    }
+
+    public static int level(BTreeNode node, int level) {
+        if (node == null)
+            return level;
+        return Math.max(level(node.getLeft(), level++), level(node.getRight(), level++));
     }
 
     //打印左视图
