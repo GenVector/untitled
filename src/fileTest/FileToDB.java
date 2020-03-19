@@ -20,6 +20,7 @@ public class FileToDB {
         }
     }
 
+
     public static void renameFile(File file, String dictName) {
         String name = file.getName();
         if (file.getName().split("_").length > 2) {
@@ -62,6 +63,43 @@ public class FileToDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void stringToFile2(String content, String name) {
+
+        try {
+            File file = new File(name);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+            bw.write(content);
+            bw.close();
+            System.out.println("finish");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void stringToFile(String content, String id) {
+        try {
+            System.out.println(id);
+            File file = new File(id);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            //使用true，即进行append file
+            FileWriter fileWritter = new FileWriter(file, true);
+            fileWritter.write(content);
+            fileWritter.flush();
+            fileWritter.close();
+            System.out.println("finish");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

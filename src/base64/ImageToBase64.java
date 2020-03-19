@@ -73,7 +73,6 @@ public class ImageToBase64 {
 
         if (isEmpty(imgStr)) // 图像数据为空
             return false;
-
         BASE64Decoder decoder = new BASE64Decoder();
         try {
             // Base64解码
@@ -83,12 +82,10 @@ public class ImageToBase64 {
                     b[i] += 256;
                 }
             }
-
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(b);
             out.flush();
             out.close();
-
             return true;
         } catch (Exception e) {
             return false;

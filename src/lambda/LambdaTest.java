@@ -62,6 +62,7 @@ public class LambdaTest {
 
 
     public static void sortTet() {
+        //装载因子
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> map1 = new HashMap<>();
         map1.put("a", "a");
