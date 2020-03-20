@@ -1,7 +1,6 @@
 package jdbc;
 
 import base64.ImageToBase64;
-import fileTest.FileToDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

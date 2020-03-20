@@ -31,7 +31,7 @@ public class pailiezuhe {
      * @param targ 要选择多少个次
      * @param cur  当前选择的是第几次
      */
-    private static void f(int[] arr, int targ, int cur) {
+    private static void allCanRepeat(int[] arr, int targ, int cur) {
         // TODO Auto-generated method stub
         if (cur == targ) {
             System.out.println(stack);
@@ -40,14 +40,14 @@ public class pailiezuhe {
 
         for (int i = 0; i < arr.length; i++) {
             stack.push(arr[i]);
-            f(arr, targ, cur + 1);
+            allCanRepeat(arr, targ, cur + 1);
             stack.pop();
 
         }
     }
 
     //不可重复
-    private static void f1(int[] arr, int targ, int cur) {
+    private static void allCannotRepeat(int[] arr, int targ, int cur) {
         // TODO Auto-generated method stub
         if (cur == targ) {
             System.out.println(stack);
@@ -57,7 +57,7 @@ public class pailiezuhe {
         for (int i = 0; i < arr.length; i++) {
             if (!stack.contains(arr[i])) {
                 stack.push(arr[i]);
-                f1(arr, targ, cur + 1);
+                allCannotRepeat(arr, targ, cur + 1);
                 stack.pop();
             }
         }
