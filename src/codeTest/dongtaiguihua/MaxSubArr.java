@@ -1,5 +1,7 @@
 package codeTest.dongtaiguihua;
 
+import java.util.Stack;
+
 public class MaxSubArr {
     public static void main(String[] args) {
         int[] arr = {1, -1, 15, -36, -9, 13, -45, 9, 15, -1, 2, 4, -5, -2};
@@ -92,5 +94,8 @@ public class MaxSubArr {
         }
         System.out.println(diff);
     }
+
+    private static Stack<Integer> stack;
+
 
 }

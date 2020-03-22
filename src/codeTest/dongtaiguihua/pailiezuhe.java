@@ -130,6 +130,7 @@ class pailiezuhe2 {
 }
 
 class dongtaiguihua2 {
+    private static Stack<Integer> stack = new Stack<>();
 
     //有n级台阶，一个人每次上一级或者两级，问有多少种走完n级台阶的方法。
     public static int step(int n) {
@@ -143,8 +144,38 @@ class dongtaiguihua2 {
     }
 
     public static void main(String[] args) {
-       System.out.println(step(4));
+        System.out.println(step(4));
+        int[] arr = {1, 2, 3, 4};
+        //arr(arr, 2, 0);
+        arr(arr, 3, 0, 0);
     }
 
+    public static void arr(int[] arr, int len, int cur) {
+        if (cur == len) {
+            System.out.println(stack);
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (!stack.contains(arr[i])) {
+                stack.push(arr[i]);
+                arr(arr, len, cur + 1);
+                stack.pop();
+            }
+        }
+    }
+
+    public static void arr(int[] arr, int len, int cur, int has) {
+        if (has == len) {
+            System.out.println(stack);
+            return;
+        }
+        for (int i = cur; i < arr.length; i++) {
+            if (!stack.contains(arr[i])) {
+                stack.push(arr[i]);
+                arr(arr, len, i, has + 1);
+                stack.pop();
+            }
+        }
+    }
 
 }

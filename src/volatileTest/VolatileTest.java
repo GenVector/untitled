@@ -35,20 +35,20 @@ public class VolatileTest {
 
         System.out.println("main thread Group:" + Thread.currentThread().getThreadGroup());
 
-        ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-        ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
+//        ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
+//        ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
         // 遍历线程信息，打印出ID和名称
-        for (ThreadInfo info : threadInfos) {
-            System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
-        }
+//        for (ThreadInfo info : threadInfos) {
+//            System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
+//        }
         //等待所有累加线程都结束
         while (Thread.activeCount() > 1) {
-//            ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-//            ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
-//            // 遍历线程信息，打印出ID和名称
-//            for (ThreadInfo info : threadInfos) {
-//                System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
-//            }
+            ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
+            ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
+            // 遍历线程信息，打印出ID和名称
+            for (ThreadInfo info : threadInfos) {
+                System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
+            }
             System.out.println(Thread.activeCount());
             Thread.currentThread().getThreadGroup().activeGroupCount();
             Thread.currentThread().getThreadGroup().list();
