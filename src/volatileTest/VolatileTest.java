@@ -3,6 +3,7 @@ package volatileTest;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.time.Instant;
 
 /**
  * volatile变量自增运算测试
@@ -20,6 +21,7 @@ public class VolatileTest {
 
     public static void main(String[] args) {
         Thread[] threads = new Thread[THREADS_COUNT];
+        long start = Instant.now().toEpochMilli();
         for (int i = 0; i < THREADS_COUNT; i++) {
             threads[i] = new Thread(new Runnable() {
                 @Override
@@ -33,7 +35,7 @@ public class VolatileTest {
             threads[i].start();
         }
 
-        System.out.println("main thread Group:" + Thread.currentThread().getThreadGroup());
+//        System.out.println("main thread Group:" + Thread.currentThread().getThreadGroup());
 
 //        ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
 //        ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
@@ -43,17 +45,18 @@ public class VolatileTest {
 //        }
         //等待所有累加线程都结束
         while (Thread.activeCount() > 1) {
-            ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-            ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
-            // 遍历线程信息，打印出ID和名称
-            for (ThreadInfo info : threadInfos) {
-                System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
-            }
-            System.out.println(Thread.activeCount());
-            Thread.currentThread().getThreadGroup().activeGroupCount();
-            Thread.currentThread().getThreadGroup().list();
+//            ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
+//            ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
+//            // 遍历线程信息，打印出ID和名称
+//            for (ThreadInfo info : threadInfos) {
+//                System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
+//            }
+//            System.out.println(Thread.activeCount());
+//            Thread.currentThread().getThreadGroup().activeGroupCount();
+//            Thread.currentThread().getThreadGroup().list();
             Thread.yield();
         }
+        System.out.println(Instant.now().toEpochMilli() - start);
         System.out.println(race);
     }
 }
