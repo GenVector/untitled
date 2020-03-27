@@ -17,27 +17,33 @@ public class BTree {
     public static void main(String[] args) {
         BTree bTree = NewTree();
         //afterOrder(bTree.getRoot());
-        System.out.println(level(bTree.getRoot()));
+        System.out.println(level(bTree.getRoot(), 0));
+        Stack<Integer> stack = new Stack<>();
+        leftview(bTree.root, stack, 0);
+        System.out.println(stack);
         //int[][][]array=new int[1][0][-1];
+        findPath(bTree.getRoot(),65);
+
     }
 
     /*
                 50
             5      15
-          20     18  19
+          10     18  19
          2  21         25
-
+                     80
      */
     public static BTree NewTree() {
         BTree bTree = new BTree(new BTreeNode(50));
         bTree.getRoot().setLeft(new BTreeNode(5));
         bTree.getRoot().setRight(new BTreeNode(15));
-        bTree.getRoot().getLeft().setLeft(new BTreeNode(20));
+        bTree.getRoot().getLeft().setLeft(new BTreeNode(10));
         bTree.getRoot().getLeft().getLeft().setLeft(new BTreeNode(2));
         bTree.getRoot().getLeft().getLeft().setRight(new BTreeNode(21));
         bTree.getRoot().getRight().setLeft(new BTreeNode(18));
         bTree.getRoot().getRight().setRight(new BTreeNode(19));
         bTree.getRoot().getRight().getRight().setRight(new BTreeNode(25));
+        bTree.getRoot().getRight().getRight().getRight().setLeft(new BTreeNode(80));
         return bTree;
     }
 
@@ -155,16 +161,6 @@ public class BTree {
         mirrorRecursively(node.getRight());
     }
 
-    //
-    public static int level(BTreeNode node) {
-        if (node == null)
-            return 0;
-
-        return Math.max(level(node.getLeft(), 1), level(node.getRight(), 1));
-
-
-    }
-
     public static int level(BTreeNode node, int level) {
         if (node == null)
             return level;
@@ -172,7 +168,49 @@ public class BTree {
     }
 
     //打印左视图
-    public static void leftView(BTreeNode node) {
-
+    public static void leftview(BTreeNode root, Stack<Integer> stack, int level) {
+        if (root == null)
+            return;
+        if (level == stack.size()) {//判断是不是每一层的第一个节点
+            stack.push(root.getData());
+        }
+        leftview(root.getLeft(), stack, level + 1);
+        leftview(root.getRight(), stack, level + 1);
     }
+
+    //打印右视图
+    public static void rightview(BTreeNode root, Stack<Integer> stack, int level) {
+        if (root == null)
+            return;
+        if (level == stack.size()) {//判断是不是每一层的第一个节点
+            stack.push(root.getData());
+        }
+        rightview(root.getRight(), stack, level + 1);
+        rightview(root.getLeft(), stack, level + 1);
+    }
+
+    //打印从根节点开始和为K的所有节点
+    public static void findPath(BTreeNode node, int k) {
+        if (node == null) return;
+        Stack<Integer> stack = new Stack<>();
+        findPath(node, k, stack);
+    }
+
+    private static void findPath(BTreeNode node, int k, Stack<Integer> path) {
+        if (node == null) return;
+//		if(node.getLeftNode()==null&&node.getRightNode()==null) {
+        if (node.getData() == k) {
+            System.out.println("路径开始");
+            for (int i : path)
+                System.out.print(i + ",");
+            System.out.println(node.getData());
+//			}
+        } else {
+            path.push(node.getData());
+            findPath(node.getLeft(), k - node.getData(), path);
+            findPath(node.getRight(), k - node.getData(), path);
+            path.pop();
+        }
+    }
+
 }

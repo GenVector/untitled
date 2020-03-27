@@ -8,17 +8,31 @@ import static codeTest.dongtaiguihua.pailiezuhe2.zuhe;
 public class pailiezuhe {
     public static void main(String[] args) {
         int[] arr1 = {1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14};
-        mergeMid(arr1, 5);
+        //mergeMid(arr1, 5);
         char[] c = {'a', 'b', 'c', 'd'};
-        for (int i = 1; i <= c.length; i++)
-            zuhe(c, 0, i, new Stack<>());
+        //for (int i = 1; i <= c.length; i++)
+        //zuhe(c, 0, i, new Stack<>());
 
         int[] arr = {1, 2, 3, 4};
-        //f1(arr, 3, 0);
+        arrNew(arr, 0, 3);
 
         int shu[] = {1, 2, 3, 4};
 
         //f(shu, 3, 0, 0); // 从这个数组4个数中选择三个
+    }
+
+    public static void arrNew(int[] arr, int cur, int len) {
+        if (cur == len) {
+            System.out.println(stack);
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (stack.contains(arr[i]))
+                continue;
+            stack.push(arr[i]);
+            arrNew(arr, cur + 1, len);
+            stack.pop();
+        }
     }
 
 
@@ -63,6 +77,21 @@ public class pailiezuhe {
         }
     }
 
+    //1不在第一位,2不在第二位
+    public static void arr2(int[] arr, int len, int cur) {
+        if (cur == len) {
+            System.out.println(stack);
+            return;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (!stack.contains(arr[i]) && !(cur == 0 && arr[i] == 1) && !(cur == 1 && arr[i] == 2)) {
+                stack.push(arr[i]);
+                arr2(arr, len, cur + 1);
+                stack.pop();
+            }
+        }
+    }
+
     /**
      * @param shu  元素
      * @param targ 要选多少个元素
@@ -92,14 +121,40 @@ public class pailiezuhe {
 }
 
 class pailiezuhe2 {
+    public static void main(String[] args) {
+        int[] arr = {1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14};
+        mergeMid(arr, 5,0,arr.length);
+    }
+
     //合并有序数组:两个递增序列{1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14}
     public static void mergeMid(int arr[], int mid) {
-        for (int i = 0; i < arr[mid]; i++) {
+        for (int i = 0; i < mid; i++) {
             if (arr[i] > arr[mid]) {
                 int tem = arr[i];
                 arr[i] = arr[mid];
                 arr[mid] = tem;
                 for (int j = mid; j < arr.length - 1; j++) {
+                    if (arr[j + 1] < arr[j]) {
+                        int temp = arr[j + 1];
+                        arr[j + 1] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+        }
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    public static void mergeMid(int arr[], int mid, int start, int end) {
+        for (int i = start; i < mid; i++) {
+            if (arr[i] > arr[mid]) {
+                int tem = arr[i];
+                arr[i] = arr[mid];
+                arr[mid] = tem;
+                for (int j = mid; j < end - 1; j++) {
                     if (arr[j + 1] < arr[j]) {
                         int temp = arr[j + 1];
                         arr[j + 1] = arr[j];
@@ -127,6 +182,7 @@ class pailiezuhe2 {
         str.pop();
         zuhe(c, begin + 1, len, str);
     }
+
 }
 
 class dongtaiguihua2 {
@@ -144,38 +200,10 @@ class dongtaiguihua2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(step(4));
+        //System.out.println(step(4));
         int[] arr = {1, 2, 3, 4};
         //arr(arr, 2, 0);
-        arr(arr, 3, 0, 0);
-    }
-
-    public static void arr(int[] arr, int len, int cur) {
-        if (cur == len) {
-            System.out.println(stack);
-            return;
-        }
-        for (int i = 0; i < arr.length; i++) {
-            if (!stack.contains(arr[i])) {
-                stack.push(arr[i]);
-                arr(arr, len, cur + 1);
-                stack.pop();
-            }
-        }
-    }
-
-    public static void arr(int[] arr, int len, int cur, int has) {
-        if (has == len) {
-            System.out.println(stack);
-            return;
-        }
-        for (int i = cur; i < arr.length; i++) {
-            if (!stack.contains(arr[i])) {
-                stack.push(arr[i]);
-                arr(arr, len, i, has + 1);
-                stack.pop();
-            }
-        }
+        //arr(arr, 3, 0, 0);
     }
 
 }
