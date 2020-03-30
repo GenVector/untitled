@@ -1,4 +1,4 @@
-package volatileTest;
+package thread.volatileTest;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;

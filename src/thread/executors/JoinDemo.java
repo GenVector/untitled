@@ -1,4 +1,4 @@
-package executors;
+package thread.executors;
 
 public class JoinDemo extends Thread {
     int i;

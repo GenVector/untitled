@@ -1,4 +1,4 @@
-package executors;
+package thread.executors;
 
 public class ThreadWaitInterruptDemo {
     public static void main(String[] args) {

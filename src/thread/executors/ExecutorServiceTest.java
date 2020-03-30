@@ -1,6 +1,5 @@
-package executors;
+package thread.executors;
 
-import java.util.Vector;
 import java.util.concurrent.*;
 
 public class ExecutorServiceTest {
