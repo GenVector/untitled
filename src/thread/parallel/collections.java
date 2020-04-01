@@ -1,7 +1,10 @@
-package thread;
+package thread.parallel;
+
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class collections {
     public static void main(String[] args) {
@@ -22,3 +25,4 @@ public class collections {
     }
 
 }
+

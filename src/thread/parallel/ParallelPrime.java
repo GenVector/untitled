@@ -1,13 +1,11 @@
-package thread;
+package thread.parallel;
 
 import java.time.Instant;
-import java.util.*;
 import java.util.stream.*;
 
 import static java.util.stream.LongStream.*;
 
 import java.io.*;
-import java.nio.file.*;
 
 import static java.util.stream.LongStream.rangeClosed;
 

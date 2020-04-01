@@ -1,4 +1,4 @@
-package thread.volatileTest;
+package thread.automic;
 
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;

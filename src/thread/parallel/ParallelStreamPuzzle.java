@@ -1,4 +1,4 @@
-package thread;
+package thread.parallel;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

@@ -1,4 +1,4 @@
-package thread;
+package thread.parallel;
 
 import java.time.Instant;
 import java.util.Arrays;
