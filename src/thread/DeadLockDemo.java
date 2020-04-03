@@ -13,6 +13,11 @@ public class DeadLockDemo {
     public void method1() {
         synchronized (String.class) {
             System.out.println("Aquired lock on String.class object");
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+
+            }
             synchronized (Integer.class) {
                 System.out.println("Aquired lock on Integer.class object");
             }
@@ -28,6 +33,12 @@ public class DeadLockDemo {
     public void method2() {
         synchronized (Integer.class) {
             System.out.println("2 Aquired lock on Integer.class object");
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+
+            }
+
             synchronized (String.class) {
                 System.out.println("2 Aquired lock on String.class object");
             }
@@ -46,28 +57,3 @@ public class DeadLockDemo {
     }
 }
 
-class DeadLockFixed {
-    /**
-     * 两种方法现在都以相同的顺序请求锁,首先采用整数,然后是 String。
-     * 你也可以做反向,例如,第一个字符串,然后整数,
-     * 只要两种方法都请求锁定,两者都能解决问题
-     * 顺序一致。
-     */
-    public void method1() {
-        synchronized (Integer.class) {
-            System.out.println("Aquired lock on Integer.class object");
-            synchronized (String.class) {
-                System.out.println("Aquired lock on String.class object");
-            }
-        }
-    }
-
-    public void method2() {
-        synchronized (Integer.class) {
-            System.out.println("Aquired lock on Integer.class object");
-            synchronized (String.class) {
-                System.out.println("Aquired lock on String.class object");
-            }
-        }
-    }
-}

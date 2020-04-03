@@ -4,6 +4,9 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.time.Instant;
+import java.util.Map;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.FutureTask;
 
 /**
  * volatile变量自增运算测试
@@ -35,18 +38,20 @@ public class VolatileTest {
             threads[i].start();
         }
 
-//        System.out.println("main thread Group:" + Thread.currentThread().getThreadGroup());
+        System.out.println("main thread Group:" + Thread.currentThread().getThreadGroup());
 
-//        ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-//        ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
-        // 遍历线程信息，打印出ID和名称
-//        for (ThreadInfo info : threadInfos) {
-//            System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
-//        }
+        ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
+        Map<Thread, StackTraceElement[]> stackTraces = Thread.getAllStackTraces();
+        for (Thread thread : stackTraces.keySet()) {
+            thread.getName();
+        }
+        //遍历线程信息，打印出ID和名称
+        for (ThreadInfo info : threadInfos) {
+            System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
+        }
         //等待所有累加线程都结束
         while (Thread.activeCount() > 1) {
-            ThreadMXBean tmxb = ManagementFactory.getThreadMXBean();
-            ThreadInfo[] threadInfos = tmxb.dumpAllThreads(false, false);
             // 遍历线程信息，打印出ID和名称
             for (ThreadInfo info : threadInfos) {
                 System.out.println("[" + info.getThreadId() + "] " + info.getThreadName());
