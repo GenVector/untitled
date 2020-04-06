@@ -2,15 +2,15 @@ package codeTest.arr;
 
 import java.util.Arrays;
 
+import static codeTest.dongtaiguihua.pailiezuhe.mergeMid;
+
 
 public class SortTest {
     public static void main(String[] args) {
         int[] arr = {0, 5, 19, 2, 15, 44, 3, 17, 4, 6, 10, 8, 17};
         //heapSort(arr);
-        quickSort(arr, 0, arr.length - 1);
+        mergeSort(arr, 0, arr.length - 1);
         Arrays.stream(arr).forEach(System.out::println);
-
-
     }
 
     //冒泡排序
@@ -120,30 +120,30 @@ public class SortTest {
         arr[parent] = temp;
     }
 
-    //并归排序
-    public static void mergeSort(int[] a, int left, int mid, int right) {
-        int[] tmp = new int[a.length];//辅助数组
-        int p1 = left, p2 = mid + 1, k = left;//p1、p2是检测指针，k是存放指针
-        while (p1 <= mid && p2 <= right) {
-            if (a[p1] <= a[p2])
-                tmp[k++] = a[p1++];
-            else
-                tmp[k++] = a[p2++];
-        }
-
-        while (p1 <= mid) tmp[k++] = a[p1++];//如果第一个序列未检测完，直接将后面所有元素加到合并的序列中
-        while (p2 <= right) tmp[k++] = a[p2++];//同上
-        //复制回原素组
-        for (int i = left; i <= right; i++)
-            a[i] = tmp[i];
-    }
 
     public static void mergeSort(int[] a, int start, int end) {
         if (start < end) {//当子序列中只有一个元素时结束递归
             int mid = (start + end) / 2;//划分子序列
             mergeSort(a, start, mid);//对左侧子序列进行递归排序
             mergeSort(a, mid + 1, end);//对右侧子序列进行递归排序
-            mergeSort(a, start, mid, end);//合并
+            mergeMid(a, start, mid + 1, end);//合并
+        }
+    }
+
+    public static void mergeMid(int arr[], int start, int mid, int end) {
+        for (int i = start; i < mid; i++) {
+            if (arr[i] > arr[mid]) {
+                int tem = arr[i];
+                arr[i] = arr[mid];
+                arr[mid] = tem;
+                for (int j = mid; j < end; j++) {
+                    if (arr[j + 1] < arr[j]) {
+                        int temp = arr[j + 1];
+                        arr[j + 1] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
         }
     }
 
@@ -181,5 +181,14 @@ public class SortTest {
         // i的索引处为上面已确定好的基准值的位置，无需再处理
         quickSort(array, left, i - 1);
         quickSort(array, i + 1, right);
+    }
+
+    public static void merge(int[] arr, int left, int right) {
+        if (left >= right)
+            return;
+        int mid = (left + right) / 2;
+        merge(arr, left, mid);
+        merge(arr, mid + 1, right);
+        //merge(arr, left, mid, right);
     }
 }
