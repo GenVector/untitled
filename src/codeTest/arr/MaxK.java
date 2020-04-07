@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class MaxK {
     public static void main(String[] args) {
-        int[] arr = {0, 5, 7, 4, 6, 10, 8, 17, 1, 2, 3, 30, 31};
+        int[] arr = {10, 5, 7, 4, 6, 0, 8, 17, 1, 2, 3, 30, 31};
         //System.out.println(getMinK(arr, 3));
         System.out.println(quicksort(arr, 0, arr.length - 1, 4));
-        int k = quicksort2(arr, 0, arr.length - 1, 4);
-        for (int i = 0; i <= k; i++) {
-            System.out.print(arr[i] + " ");
-        }
+//        int k = quicksort2(arr, 0, arr.length - 1, 4);
+//        for (int i = 0; i <= k; i++) {
+//            System.out.print(arr[i] + " ");
+//        }
     }
 
 
@@ -43,14 +43,24 @@ public class MaxK {
         return low;
     }
 
+//    static int quicksort(int[] arr, int l, int r, int k) {
+//        int pos = part2(arr, l, r);
+//        if (pos - l + 1 == k)
+//            return arr[pos];
+//        else if (pos - l + 1 > k)
+//            return quicksort(arr, l, pos - 1, k);
+//        else
+//            return quicksort(arr, pos + 1, r, k - (pos - l + 1));
+//    }
+
     static int quicksort(int[] arr, int l, int r, int k) {
         int pos = part2(arr, l, r);
-        if (pos - l + 1 == k)
+        if (pos == k)
             return arr[pos];
         else if (pos - l + 1 > k)
             return quicksort(arr, l, pos - 1, k);
         else
-            return quicksort(arr, pos + 1, r, k - (pos - l + 1));
+            return quicksort(arr, pos + 1, r, k );
     }
 
     //求top k 全部

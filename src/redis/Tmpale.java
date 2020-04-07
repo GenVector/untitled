@@ -1,6 +1,5 @@
 package redis;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.jsoup.internal.StringUtil;
 
 import java.util.concurrent.locks.Lock;

@@ -64,7 +64,7 @@ public class LambdaTest {
     public static void sortTet() {
         //装载因子
         List<Map<String, Object>> list = new ArrayList<>();
-        Map<String, Object> map1 = new HashMap<>();
+        Map<String, Object> map1 = new HashMap<>(10);
         map1.put("a", "a");
         map1.put("score", 2.6565f);
         Map<String, Object> map2 = new HashMap<>();
