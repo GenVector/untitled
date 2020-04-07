@@ -5,7 +5,7 @@ import java.util.StringJoiner;
 
 public class ReverseString {
     public static void main(String[] args) {
-        String str = "hello world";
+        String str = " ";
         System.out.println(reverseWord(str));
         int[] arr = {0, 5, 7, 4, 6, 10, 8, 17};
         Arrays.stream(reverse(arr)).forEach(System.out::println);
@@ -17,13 +17,18 @@ public class ReverseString {
             return null;
         String[] strs = str.split(" ");
         if (strs == null || strs.length < 1)
-            return null;
+            return "";
         int len = strs.length;
-        StringJoiner stringJoiner = new StringJoiner(" ");
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= len; i++) {
-            stringJoiner.add(strs[len - i]);
+            if (!strs[len - i].equals(""))
+                sb.append(strs[len - i] + " ");
         }
-        return stringJoiner.toString();
+        String ret = sb.toString();
+        len = ret.length();
+        if (len > 0)
+            ret = ret.substring(0, len - 1);
+        return ret;
     }
 
     public static String reverse(String str, int len) {

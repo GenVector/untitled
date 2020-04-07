@@ -20,6 +20,27 @@ public class pailiezuhe {
 
         //f(shu, 3, 0, 0); // 从这个数组4个数中选择三个
     }
+    //合并有序数组:两个递增序列{1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14}
+    public static void mergeMid(int arr[], int mid, int start, int end) {
+        for (int i = start; i < mid; i++) {
+            if (arr[i] > arr[mid]) {
+                int tem = arr[i];
+                arr[i] = arr[mid];
+                arr[mid] = tem;
+                for (int j = mid; j < end - 1; j++) {
+                    if (arr[j + 1] < arr[j]) {
+                        int temp = arr[j + 1];
+                        arr[j + 1] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+        }
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
 
     public static void arrNew(int[] arr, int cur, int len) {
         if (cur == len) {
@@ -36,7 +57,7 @@ public class pailiezuhe {
     }
 
 
-    public static Stack<Integer> stack = new Stack<Integer>();
+    public static Stack<Integer> stack = new Stack<>();
 
     //可重复、全部排列组合 n的n次方
 
@@ -123,10 +144,9 @@ public class pailiezuhe {
 class pailiezuhe2 {
     public static void main(String[] args) {
         int[] arr = {1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14};
-        mergeMid(arr, 5,0,arr.length);
+        pailiezuhe.mergeMid(arr, 5,0,arr.length);
     }
 
-    //合并有序数组:两个递增序列{1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14}
     public static void mergeMid(int arr[], int mid) {
         for (int i = 0; i < mid; i++) {
             if (arr[i] > arr[mid]) {
@@ -134,27 +154,6 @@ class pailiezuhe2 {
                 arr[i] = arr[mid];
                 arr[mid] = tem;
                 for (int j = mid; j < arr.length - 1; j++) {
-                    if (arr[j + 1] < arr[j]) {
-                        int temp = arr[j + 1];
-                        arr[j + 1] = arr[j];
-                        arr[j] = temp;
-                    }
-                }
-            }
-        }
-        for (int i : arr) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
-    }
-
-    public static void mergeMid(int arr[], int mid, int start, int end) {
-        for (int i = start; i < mid; i++) {
-            if (arr[i] > arr[mid]) {
-                int tem = arr[i];
-                arr[i] = arr[mid];
-                arr[mid] = tem;
-                for (int j = mid; j < end - 1; j++) {
                     if (arr[j + 1] < arr[j]) {
                         int temp = arr[j + 1];
                         arr[j + 1] = arr[j];

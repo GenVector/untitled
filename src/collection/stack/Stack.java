@@ -1,0 +1,162 @@
+package collection.stack;
+
+//public class Stack {
+//
+//}
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+class MinStack {
+
+    // 数据栈
+    private Stack<Integer> data;
+    // 辅助栈
+    private Stack<Integer> helper;
+
+    /**
+     * initialize your data structure here.
+     */
+    public MinStack() {
+        data = new Stack<>();
+        helper = new Stack<>();
+    }
+
+    // 思路 1：数据栈和辅助栈在任何时候都同步
+
+    public void push(int x) {
+        // 数据栈和辅助栈一定会增加元素
+        data.add(x);
+        if (helper.isEmpty() || helper.peek() >= x) {
+            helper.add(x);
+        } else {
+            helper.add(helper.peek());
+        }
+    }
+
+    public int pop() {
+        // 两个栈都得 pop
+        if (!data.isEmpty()) {
+            helper.pop();
+            return data.pop();
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+
+    public int top() {
+        if (!data.isEmpty()) {
+            return data.peek();
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+
+    public int getMin() {
+        if (!helper.isEmpty()) {
+            return helper.peek();
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+}
+
+class MinStack2 {
+
+    // 数据栈
+    private Stack<Integer> data;
+    // 辅助栈
+    private Stack<Integer> helper;
+
+    /**
+     * initialize your data structure here.
+     */
+    public MinStack2() {
+        data = new Stack<>();
+        helper = new Stack<>();
+    }
+
+    // 思路 2：辅助栈和数据栈不同步
+    // 关键 1：辅助栈的元素空的时候，必须放入新进来的数
+    // 关键 2：新来的数小于或者等于辅助栈栈顶元素的时候，才放入（特别注意这里等于要考虑进去）
+    // 关键 3：出栈的时候，辅助栈的栈顶元素等于数据栈的栈顶元素，才出栈，即"出栈保持同步"就可以了
+
+    public void push(int x) {
+        // 辅助栈在必要的时候才增加
+        data.add(x);
+        // 关键 1 和 关键 2
+        if (helper.isEmpty() || helper.peek() >= x) {
+            helper.add(x);
+        }
+    }
+
+    public int pop() {
+        // 关键 3：data 一定得 pop()
+        if (!data.isEmpty()) {
+            // 注意：声明成 int 类型，这里完成了自动拆箱，从 Integer 转成了 int，因此下面的比较可以使用 "==" 运算符
+            // 如果把 top 变量声明成 Integer 类型，下面的比较就得使用 equals 方法
+            int top = data.pop();
+            if (top == helper.peek()) {
+                helper.pop();
+            }
+            return top;
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+
+    public int top() {
+        if (!data.isEmpty()) {
+            return data.peek();
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+
+    public int getMin() {
+        if (!helper.isEmpty()) {
+            return helper.peek();
+        }
+        throw new RuntimeException("栈中元素为空，此操作非法");
+    }
+
+}
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root, int level, List<Integer> list) {
+        if (root == null)
+            return null;
+        if (list.size() == level)
+            list.add(root.val);
+
+        if (root.right != null)
+            rightSideView(root.right, level + 1, list);
+        if (root.left != null)
+            rightSideView(root.left, level + 1, list);
+
+        return list;
+    }
+
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        return rightSideView(root, 0, list);
+    }
+
+    public static void main(String[] args) {
+        TreeNode treeNode = new TreeNode(1);
+        treeNode.left = new TreeNode(2);
+        treeNode.right = new TreeNode(3);
+        treeNode.left.right = new TreeNode(5);
+        treeNode.right.right = new TreeNode(4);
+        List<Integer> list = new Solution().rightSideView(treeNode);
+
+
+    }
+}
+

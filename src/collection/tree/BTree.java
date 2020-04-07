@@ -19,10 +19,17 @@ public class BTree {
         //afterOrder(bTree.getRoot());
         System.out.println(level(bTree.getRoot(), 0));
         Stack<Integer> stack = new Stack<>();
-        leftview(bTree.root, stack, 0);
+        //leftview(bTree.root, stack, 0);
+        leftView2(bTree.root, 0, stack);
         System.out.println(stack);
+        posOrder(bTree.root);
+        System.out.println();
+        inOrder(bTree.root);
+        //afterOrder(bTree.root);
+        System.out.println();
+
         //int[][][]array=new int[1][0][-1];
-        findPath(bTree.getRoot(),65);
+        findPath(bTree.getRoot(), 65);
 
     }
 
@@ -47,10 +54,20 @@ public class BTree {
         return bTree;
     }
 
+    public static void leftView2(BTreeNode node, int level, Stack<Integer> stack) {
+        if (node == null)
+            return;
+        if (stack.size() == level) {
+            stack.push(node.getData());
+        }
+        leftView2(node.getLeft(), level + 1, stack);
+        leftView2(node.getRight(), level + 1, stack);
+    }
+
     //先序遍历
     public static void preOrder(BTreeNode node) {
         if (node != null)
-            System.out.println(node.getData() + " ");
+            System.out.print(node.getData() + " ");
         else
             return;
         preOrder(node.getLeft());
@@ -98,28 +115,39 @@ public class BTree {
                 node = node.getLeft();
             } else {
                 node = nodeStack.pop();
-                System.out.println(node.getData());
+                System.out.print(node.getData() + " ");
                 node = node.getRight();
             }
         }
     }
 
+    /*
+                50
+            5      15
+          10     18  19
+         2  21         25
+                     80
+     */
     //后序遍历
-    public static void afterOrder(BTreeNode node) {
-        Stack<BTreeNode> nodeStack = new Stack<>();
-        nodeStack.push(node);
-        while (nodeStack.size() > 0 || node != null) {
-            if (node.getLeft() != null) {
-                nodeStack.push(node.getLeft());
-                node = node.getLeft();
-            } else if (node.getRight() != null) {
-                nodeStack.push(node.getRight());
-                node = node.getRight();
+    public static void posOrder(BTreeNode node) {
+        if (node == null)
+            return;
+        Stack<BTreeNode> stack = new Stack<>();
+        stack.push(node);
+        BTreeNode c;
+        while (!stack.isEmpty()) {
+            c = stack.peek();
+            if (c.getLeft() != null && node != c.getLeft() && node != c.getRight()) {
+                stack.push(c.getLeft());
+            } else if (c.getRight() != null && node != c.getRight()) {
+                stack.push(c.getRight());
             } else {
-                node = nodeStack.pop();
-                System.out.println(node.getData());
+                System.out.print(c.getData() + " ");
+                stack.pop();
+                node = c;
             }
         }
+        System.out.println();
     }
 
     //层序遍历
@@ -205,7 +233,7 @@ public class BTree {
                 System.out.print(i + ",");
             System.out.println(node.getData());
 //			}
-        } else {
+        } else if (node.getData() < k) {
             path.push(node.getData());
             findPath(node.getLeft(), k - node.getData(), path);
             findPath(node.getRight(), k - node.getData(), path);
