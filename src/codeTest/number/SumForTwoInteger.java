@@ -42,7 +42,7 @@ class Solution {
         Arrays.sort(nums); // 排序
         for (int i = 0; i < len; i++) {
             if (nums[i] > 0) break; // 如果当前数字大于0，则三数之和一定大于0，所以结束循环
-            if ( nums[i] == nums[i - 1]) continue; // 去重
+            if (nums[i] == nums[i - 1]) continue; // 去重
             int L = i + 1;
             int R = len - 1;
             while (L < R) {
@@ -60,6 +60,37 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public List<List<Integer>> threeSum2(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i - 1] == nums[i]) continue;
+            int l = i + 1;
+            int r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    list.add(Arrays.asList(nums[i], nums[l], nums[r]));
+
+                    while (l < r && nums[l + 1] == nums[l]) {
+                        l++;
+                    }
+                    while (l < r && nums[r - 1] == nums[r]) {
+                        r--;
+                    }
+                    l++;
+                    r--;
+                } else if (sum > 0) {
+                    r--;
+                } else
+                    l++;
+            }
+        }
+        return list;
     }
 }
 

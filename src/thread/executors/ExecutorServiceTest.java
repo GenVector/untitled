@@ -3,6 +3,25 @@ package thread.executors;
 import java.util.concurrent.*;
 
 public class ExecutorServiceTest {
+
+
+    static Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            //System.out.println("sub thread Group:" + Thread.currentThread().getThreadGroup());
+            for (int i = 0; i < 10000; i++) {
+                System.out.println("i");
+            }
+        }
+    };
+    static Callable<Future> callable = new Callable<Future>() {
+        @Override
+        public Future call() throws Exception {
+            return new FutureTask(runnable, 0);
+
+        }
+    };
+
     public static void main(String[] args) {
         //自定义线程池
         //参数说明
@@ -28,9 +47,19 @@ public class ExecutorServiceTest {
                 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
 
-        //创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Timer类
+
+        //创建一个支持定时、延时任务及周期性的任务执行的线程池
         //既然这样,是不是也可以代替任务调度
+        // 在这之前的实现需要依靠Timer和TimerTask或者其它第三方工具来完成。但Timer有不少的缺陷
+        //Runnable对象或者Callable对象。会把传入的任务封装成一个RunnableScheduledFuture对象，其实也就是ScheduledFutureTask对象
         ExecutorService scheduledPool = Executors.newScheduledThreadPool(5);
+        ExecutorService singleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+        ((ScheduledExecutorService) scheduledPool).scheduleAtFixedRate(runnable, 100, 10, TimeUnit.HOURS);
+        ((ScheduledExecutorService) scheduledPool).scheduleWithFixedDelay(runnable, 100, 10, TimeUnit.HOURS);
+        //FutureTask;
+        //Callable;
+
+
         //固定大小的线程池
         //核心线程池大小和最大线程池大小均为5
         //目前只有它在不shut down的情况下有内存泄漏情况

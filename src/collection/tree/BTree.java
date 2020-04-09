@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 @Data
@@ -30,6 +31,8 @@ public class BTree {
 
         //int[][][]array=new int[1][0][-1];
         findPath(bTree.getRoot(), 65);
+        System.out.println(ifAbsolute(bTree.getRoot()));
+
 
     }
 
@@ -224,6 +227,7 @@ public class BTree {
         findPath(node, k, stack);
     }
 
+
     private static void findPath(BTreeNode node, int k, Stack<Integer> path) {
         if (node == null) return;
 //		if(node.getLeftNode()==null&&node.getRightNode()==null) {
@@ -239,6 +243,30 @@ public class BTree {
             findPath(node.getRight(), k - node.getData(), path);
             path.pop();
         }
+
+    }
+
+    public static boolean ifAbsolute(BTreeNode node) {
+        boolean rigth = false;
+        Queue<BTreeNode> queue = new LinkedList<>();
+        queue.add(node);
+        while (queue.size() > 0) {
+            node = queue.poll();
+            System.out.println(node.getData() + " ");
+            if (node.getLeft() != null)
+                queue.offer(node.getLeft());
+            if (node.getRight() != null)
+                queue.offer(node.getRight());
+            if (node.getRight() != null && node.getLeft() == null)
+                return false;
+            if (node.getRight() == null) {
+                rigth = true;
+                continue;
+            }
+            if (rigth && (node.getLeft() != null || node.getRight() != null))
+                return false;
+        }
+        return true;
     }
 
 }

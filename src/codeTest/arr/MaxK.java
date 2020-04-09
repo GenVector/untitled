@@ -1,6 +1,7 @@
 package codeTest.arr;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class MaxK {
     public static void main(String[] args) {
@@ -13,7 +14,6 @@ public class MaxK {
 //            System.out.print(arr[i] + " ");
 //        }
     }
-
 
     public static int part(int[] a, int low, int high) {
         int pivot = a[low];
