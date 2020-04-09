@@ -246,6 +246,7 @@ public class BTree {
 
     }
 
+    //判断是否是完全二叉树
     public static boolean ifAbsolute(BTreeNode node) {
         boolean rigth = false;
         Queue<BTreeNode> queue = new LinkedList<>();
