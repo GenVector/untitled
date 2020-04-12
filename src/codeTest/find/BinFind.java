@@ -1,11 +1,40 @@
 package codeTest.find;
 
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class BinFind {
     public static void main(String[] args) {
-        int[] arr = {1, 3, 5, 6, 8, 11, 13, 15, 25, 36};
-        int[] arr2 = {11, 13, 15, 25, 36, 1, 3, 5, 6, 8};
-        System.out.println(binFind(arr2, 0, arr.length - 1, 1));
-        System.out.println(binFind2(arr2, 0, arr.length - 1, 3));
+//        int[] arr = {1, 3, 5, 6, 8, 11, 13, 15, 25, 36};
+//        int[] arr2 = {11, 13, 15, 25, 36, 1, 3, 5, 6, 8};
+//        System.out.println(binFind(arr2, 0, arr.length - 1, 1));
+//        System.out.println(binFind2(arr2, 0, arr.length - 1, 3));
+        String s=null;
+//        if((s==null)|(s.length()>0)){
+//
+//        }
+//        IndexOutOfBoundsException
+//        int y=0;
+//         boolean b=(boolean) y;
+//         Thread
+//        byte b=2,e=3;
+//        byte f=b+3;
+//        System.out.print(f);
+        f();
+    }
+
+    public static int f(){
+        try{
+            FileInputStream din =new FileInputStream("tesy.java");
+            din.read();
+        }catch (IOException e){
+            System.out.print("filwick");
+            return 99;
+        }finally {
+            System.out.print("filton");
+return 0;
+        }
     }
 
     //二分查找

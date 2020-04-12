@@ -31,9 +31,12 @@ class Insect {
 public class Beetle extends Insect {
     private int k = printInit("Beetle.k.initialized");
 
+    final  int i=7;
+
     private static int x2 = printInit("static Beetle.x2 initialized");
 
     public Beetle() {
+        //i=8;
         System.out.print("Beetle constructor ");
         System.out.print("k = " + k);
         System.out.println(" j = " + j);

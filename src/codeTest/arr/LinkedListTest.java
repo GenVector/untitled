@@ -18,11 +18,12 @@ public class LinkedListTest {
 //        node1 = reverseLinked(node1);
         System.out.println(node1);
         System.out.println(node2);
-        Stack<Integer> stack2 = node2.toReverseString(node2, new Stack<Integer>());
-        Stack<Integer> stack1 = node1.toReverseString(node1, new Stack<Integer>());
-        Stack<Integer> stack3 = node1.toReverseString(add(node1, node2), new Stack<Integer>());
-        LinkNode node3 = add(node1, node2);
-        System.out.println(node3);
+
+//        Stack<Integer> stack2 = node2.toReverseString(node2, new Stack<Integer>());
+//        Stack<Integer> stack1 = node1.toReverseString(node1, new Stack<Integer>());
+//        Stack<Integer> stack3 = node1.toReverseString(addTwoList(node1, node2), new Stack<Integer>());
+//        LinkNode node3 = addTwoList(node1, node2);
+        System.out.println(mergeTwoLists(node1, node2));
 //        while (!stack1.isEmpty()) {
 //            System.out.print(stack1.pop() + " ");
 //        }
@@ -36,22 +37,16 @@ public class LinkedListTest {
 //        }
     }
 
-//    public static LinkNode reverseLinked(LinkNode node, int k) {
-//        int i = 0;
-//        while (node != null) {
-//            if (i % k == 0) {
-//
-//            }
-//        }
-//    }
-
     //翻转链表
     public static LinkNode reverseLinked(LinkNode head) {
-
+        //之前的头结点
         LinkNode pNode = head;
+        //翻转之后的头结点
         LinkNode reverseHead = head;
+        //之前的节点,翻转之后为Next节点。头结点之前节点为NULL
         LinkNode prev = null;
         while (pNode != null) {
+            //后继节点
             LinkNode next = pNode.getNext();
             if (next == null)
                 reverseHead = pNode;
@@ -108,7 +103,7 @@ public class LinkedListTest {
     }
 
     //两个链表模拟加法运算
-    public static LinkNode add(LinkNode num1, LinkNode num2) {
+    public static LinkNode addTwoList(LinkNode num1, LinkNode num2) {
         int size = Math.max(num1.size(), num2.size());
         LinkNode newNum = new LinkNode();
         LinkNode returnNum = newNum;
@@ -139,6 +134,46 @@ public class LinkedListTest {
         return returnNum;
     }
 
+    //合并链表
+    //输入：1->2->4, 1->3->4
+    //输出：1->1->2->3->4->4
+    public static LinkNode mergeTwoLists(LinkNode list1, LinkNode list2) {
+        LinkNode node1 = list1, node2 = list2;
+        if (node1 == null)
+            return node2;
+        if (node2 == null)
+            return node1;
+
+        LinkNode newNode = new LinkNode();
+        LinkNode head =newNode;
+        while (node1 != null || node2 != null) {
+            if (node1 != null && node2 == null) {
+                newNode.setData(node1.getData());
+                newNode.setNext(new LinkNode());
+                newNode = newNode.getNext();
+                node1 = node1.getNext();
+            } else if (node1 == null && node2 != null) {
+                newNode.setData(node2.getData());
+                newNode.setNext(new LinkNode());
+                newNode = newNode.getNext();
+                node2 = node2.getNext();
+            } else if (node1.getData() > node2.getData()) {
+                newNode.setData(node2.getData());
+                newNode.setNext(new LinkNode());
+                newNode = newNode.getNext();
+                node2 = node2.getNext();
+            } else if (node1.getData() <= node2.getData()) {
+                newNode.setData(node1.getData());
+                newNode.setNext(new LinkNode());
+                newNode = newNode.getNext();
+                node1 = node1.getNext();
+            }
+
+        }
+
+        newNode.setNext(null);
+        return head;
+    }
 }
 
 class LinkNode {

@@ -1,6 +1,8 @@
 package socket;
 
 import java.lang.reflect.Array;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Generator<T> {
     public static void main(String[] args) {
@@ -88,7 +90,7 @@ class MList<T> extends Generator<T> {
         return this.tArr[i];
     }
 
-    public int test() {
+    public static int test() {
         try {
             System.out.println("try");
             //System.exit(0);
@@ -100,5 +102,15 @@ class MList<T> extends Generator<T> {
             return 2;
         }
         //return 1;
+    }
+
+    public static void main(String[] args) {
+        //System.out.println(" h"+ test());
+        Set s = new HashSet();
+        for(Short i=0;i<100;i++){
+            s.add(i);
+            s.remove(i-1);
+        }
+        System.out.print(s.size());
     }
 }
