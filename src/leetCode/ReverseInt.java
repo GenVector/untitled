@@ -45,6 +45,6 @@ public class ReverseInt {
 
     public static void main(String[] args) {
 
-        System.out.println(reverse2(-2147483648));
+        System.out.println(reverse2(214748368));
     }
 }
