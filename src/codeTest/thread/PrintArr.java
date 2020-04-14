@@ -1,8 +1,19 @@
 package codeTest.thread;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+
+/*
+实现手法
+1、synchronized
+2、atomic CAS
+3、ReentrantLock + condition
+4、volatile CAS
+5、CountDownLatch CyclicBarrier
+ */
 
 public class PrintArr {
 
@@ -212,6 +223,44 @@ class PrintArr5 {
                     }
                 }
             } catch (InterruptedException e) {
+                System.out.print(e);
+
+            }
+        });
+        thread1.start();
+        thread2.start();
+    }
+}
+
+class PrintArr6 {
+    private static CountDownLatch countDownLatch = new CountDownLatch(1);
+    private static CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 3, 5};
+        int[] arr2 = {2, 4, 6};
+        Thread thread1 = new Thread(() -> {
+            try {
+                for (int i = 0; i < arr1.length; i++) {
+                    System.out.print(arr1[i]);
+                    countDownLatch.countDown();
+                    cyclicBarrier.await();
+                }
+            } catch (Exception e) {
+                System.out.print(e);
+            }
+
+
+        });
+        Thread thread2 = new Thread(() -> {
+            try {
+                for (int i = 0; i < arr2.length; i++) {
+                    countDownLatch.await();
+                    System.out.print(arr2[i]);
+                    countDownLatch = new CountDownLatch(1);
+                    cyclicBarrier.await();
+                }
+            } catch (Exception e) {
                 System.out.print(e);
 
             }

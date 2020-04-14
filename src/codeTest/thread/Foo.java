@@ -22,8 +22,6 @@ public class Foo {
     }
 
     public void first(Runnable printFirst) {
-
-
         try {
             // printFirst.run() outputs "first". Do not change or remove this line.
             printFirst.run();
@@ -73,9 +71,17 @@ public class Foo {
 
     public static void main(String[] args) throws Exception {
         Foo foo = new Foo();
-        foo.first(foo::one);
-        foo.third(foo::three);
-        foo.second(foo::two);
+        new Thread(()->{
+            foo.second(foo::two);
+        }).start();
+        new Thread(()->{
+            foo.first(foo::one);
+        }).start();
+        new Thread(()->{
+            foo.third(foo::three);
+        }).start();
+
+
 
     }
 

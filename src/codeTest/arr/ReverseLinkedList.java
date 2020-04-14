@@ -25,6 +25,7 @@ public class ReverseLinkedList {
         return reverseHead;
     }
 
+
     //K位翻转链表
     LinkNode newTail = null;
 

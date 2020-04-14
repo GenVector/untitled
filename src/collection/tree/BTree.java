@@ -29,7 +29,7 @@ public class BTree {
         //afterOrder(bTree.root);
         System.out.println();
 
-        //int[][][]array=new int[1][0][-1];
+        //int[][][][] array=new int[1][0][-1][];
         findPath(bTree.getRoot(), 65);
         System.out.println(ifAbsolute(bTree.getRoot()));
 
@@ -125,19 +125,21 @@ public class BTree {
     public static void posOrder(BTreeNode node) {
         if (node == null)
             return;
+        System.out.print("后序遍历---");
         Stack<BTreeNode> stack = new Stack<>();
         stack.push(node);
-        BTreeNode c;
+        BTreeNode cur;
+        BTreeNode pre = node;
         while (!stack.isEmpty()) {
-            c = stack.peek();
-            if (c.getLeft() != null && node != c.getLeft() && node != c.getRight()) {
-                stack.push(c.getLeft());
-            } else if (c.getRight() != null && node != c.getRight()) {
-                stack.push(c.getRight());
+            cur = stack.peek();
+            if (cur.getLeft() != null && pre != cur.getLeft() && pre != cur.getRight()) {
+                stack.push(cur.getLeft());
+            } else if (cur.getRight() != null && pre != cur.getRight()) {
+                stack.push(cur.getRight());
             } else {
-                System.out.print(c.getData() + " ");
+                System.out.print(cur.getData() + " ");
                 stack.pop();
-                node = c;
+                pre = cur;
             }
         }
         System.out.println();
@@ -197,6 +199,7 @@ public class BTree {
             System.out.print(num + " ");
         }
     }
+
     public static void rightView(BTreeNode node) {
         Stack<Integer> stack = new Stack<>();
         rightView(node, stack, 0);
@@ -261,7 +264,6 @@ public class BTree {
         queue.add(node);
         while (queue.size() > 0) {
             node = queue.poll();
-            System.out.println(node.getData() + " ");
             if (node.getLeft() != null)
                 queue.offer(node.getLeft());
             if (node.getRight() != null)
