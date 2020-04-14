@@ -1,13 +1,10 @@
-package codeTest.arr;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
+package codeTest.thread;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class PrintArr {
-
-    private static ReentrantLock lock = new ReentrantLock();
 
     public static void main(String[] args) {
         int[] arr1 = {1, 3, 5};
@@ -122,56 +119,110 @@ class PrintArr3 {
 }
 
 class PrintArr4 {
-    private static Boolean i = true;
+    private static ReentrantLock lock = new ReentrantLock();
+    private static Condition condition = lock.newCondition();
+    private static volatile boolean status = true;
 
     public static void main(String[] args) {
         int[] arr1 = {1, 3, 5};
         int[] arr2 = {2, 4, 6};
         Thread thread1 = new Thread(() -> {
-            synchronized (i) {
-                try {
-                    int j = 0;
-                    while (true) {
+            try {
+                lock.lock();
+                for (int i = 0; i < arr1.length; i++) {
+//                    if(i==arr1.length){
+//                        condition.signal();
+//                    }
+                    while (!status)
+                        condition.await();
+                    System.out.println(arr1[i]);
+                    status = false;
+                    condition.signal();
+                }
+                lock.unlock();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+        Thread thread2 = new Thread(() -> {
+            try {
+                lock.lock();
+                for (int i = 0; i < arr2.length; i++) {
+                    while (status)
+                        condition.await();
+                    System.out.println(arr2[i]);
+                    status = true;
+                    condition.signal();
+                }
+                lock.unlock();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+        thread1.start();
+        thread2.start();
+
+    }
+}
+
+class PrintArr5 {
+    private static Boolean i = true;
+    private static Object lock = new Object();
+
+    public static void main(String[] args) {
+        int[] arr1 = {1, 3, 5};
+        int[] arr2 = {2, 4, 6};
+        Thread thread1 = new Thread(() -> {
+
+            try {
+                int j = 0;
+                while (j < arr1.length) {
+                    synchronized (lock) {
                         if (!i) {
-                            i.wait();
+                            lock.wait();
                         }
                         if (i) {
                             System.out.println(arr1[j]);
                             i = false;
                             j++;
+                            lock.notify();
                         }
                     }
-                } catch (InterruptedException e) {
-                    System.out.print(e);
                 }
+            } catch (InterruptedException e) {
+                System.out.print(e);
             }
+
 
         });
         Thread thread2 = new Thread(() -> {
-            synchronized (i) {
-                try {
-                    int j = 0;
-                    while (true) {
-
+            try {
+                int j = 0;
+                while (j < arr2.length) {
+                    synchronized (lock) {
                         if (i) {
-                            i.wait();
+                            lock.wait();
                         }
                         if (!i) {
                             System.out.println(arr2[j]);
                             i = true;
                             j++;
-                            i.notify();
+                            lock.notify();
                         }
                     }
-                } catch (InterruptedException e) {
-                    System.out.print(e);
                 }
+            } catch (InterruptedException e) {
+                System.out.print(e);
+
             }
         });
         thread1.start();
         thread2.start();
     }
 }
+
+
+
 
 
 
