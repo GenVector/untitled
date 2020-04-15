@@ -1,5 +1,8 @@
 package codeTest.thread;
 
+
+import thread.automic.AtomicTest;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -178,6 +181,8 @@ class PrintArr4 {
 
 class PrintArr5 {
     private static Boolean i = true;
+    //互斥资源不能抛弃原本引用。可以修改内部属性
+    //synchronized关键字是不能继承的
     private static Object lock = new Object();
 
     public static void main(String[] args) {

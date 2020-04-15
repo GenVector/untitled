@@ -81,8 +81,6 @@ public class Foo {
             foo.third(foo::three);
         }).start();
 
-
-
     }
 
 }
@@ -129,3 +127,4 @@ class Foo2 {
 
     }
 }
+

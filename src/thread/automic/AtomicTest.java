@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AtomicTest {
     public static AtomicInteger race = new AtomicInteger(0);
 
+    public String name;
+
     public static void increase() {
         race.incrementAndGet();
     }
