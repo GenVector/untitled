@@ -2,27 +2,84 @@ package jdbc;
 
 import base64.ImageToBase64;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.sql.*;
+import java.time.Instant;
+import java.util.UUID;
 
 public class JdbcDemo {
 
     //注意编码
-    public static final String URL = "jdbc:mysql://localhost:3306/community?characterEncoding=utf-8&serverTimezone=GMT%2b8&useSSL=false";
+    public static final String URL = "jdbc:mysql://39.105.108.226:3306/county_garden?characterEncoding=utf-8&serverTimezone=GMT%2b8&useSSL=false";
+    //    public static final String USER = "root";
+//    public static final String PASSWORD = ";P4oT9}h69";
     public static final String USER = "root";
-    public static final String PASSWORD = ";P4oT9}h69";
+    public static final String PASSWORD = "123456";
 
     public static void main(String[] args) throws Exception {
+        File file = new File("/data/test6.log");
         //mysqlToFile();
-        int i = 7;
-        double d = (double) i;
-        int i2 = (int) d;
-        System.out.println(i + ":" + d + ":" + i2);
-        Integer i3 = 7;
+        txt2String(file);
 
-        System.out.println(System.getProperty("line.separator"));
+    }
+
+    public static void insert2() throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        //2. 获得数据库连接
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+    }
+
+    public static void insert() throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        //2. 获得数据库连接
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+
+        String sql = "INSERT INTO `day_count` (id) VALUES(?)";
+
+        Instant instant = Instant.now();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, instant.toString().substring(0, 10));
+            ps.executeUpdate();
+            //执行sql语句
+            System.out.println("插入成功(*￣︶￣)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 1500; i++) {
+            instant = instant.plusMillis(3600 * 1000 * 24);
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, instant.toString().substring(0, 10));
+                ps.executeUpdate();
+                //执行sql语句
+                System.out.println("插入成功(*￣︶￣)");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        instant = Instant.now();
+        for (int i = 0; i < 1500; i++) {
+            instant = instant.plusMillis(-1 * 3600 * 1000 * 24);
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, instant.toString().substring(0, 10));
+                ps.executeUpdate();
+                //执行sql语句
+                System.out.println("插入成功(*￣︶￣)");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
 
     public static void mysqlToFile() throws Exception {
@@ -60,4 +117,57 @@ public class JdbcDemo {
         }
     }
 
+    public static void txt2String(File file) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        //2. 获得数据库连接
+        Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "INSERT INTO `data` (id , start_time , end_time) VALUES(?,?,?)";
+        StringBuilder result = new StringBuilder();
+        try {
+            InputStreamReader inp = new InputStreamReader(new FileInputStream(file), "GBK");
+            BufferedReader br = new BufferedReader(inp);
+            String chapter = "";
+            String s = null;
+            Data data = new Data();
+            while ((s = br.readLine()) != null) {
+                s = s.trim();
+                if (s.length() > 0) {
+                    if (s.contains("start")) {
+                        s = s.substring(s.length() - 24);
+                        long ins = Instant.parse(s).toEpochMilli();
+
+                        data.start = ins;
+                    } else if (s.contains("end")) {
+                        s = s.substring(s.length() - 24);
+                        long ins = Instant.parse(s).toEpochMilli();
+                        data.end = ins;
+                    } else {
+                        data.name = UUID.randomUUID().toString();
+                            try {
+                                PreparedStatement ps = conn.prepareStatement(sql);
+                                ps.setString(1, data.name);
+                                ps.setLong(2, data.start);
+                                ps.setLong(3, data.end);
+
+                                ps.executeUpdate();
+                                //执行sql语句
+                                System.out.println("插入成功(*￣︶￣)");
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+class Data {
+    long start;
+    long end;
+    String name;
 }

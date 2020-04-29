@@ -42,6 +42,9 @@ public class Time {
     public static void timeTest() throws Exception {
         //10位
         long t1 = Instant.now().getEpochSecond();
+        long t2 = Instant.now().toEpochMilli();
+        System.out.println(t1);
+        System.out.println(t2);
         //13位
 //        long t2 = Instant.now().toEpochMilli();
 //        long t3 = new Date().getTime();
