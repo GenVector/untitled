@@ -9,6 +9,7 @@ public class OOMObject {
 
     static class OOMObjectT {
         public byte[] placeholder = new byte[64 * 1024];
+
         public static void fillHeap(int num) throws InterruptedException {
             List<OOMObjectT> list = new ArrayList<>();
             for (int i = 0; i < num; i++) {
@@ -29,41 +30,113 @@ public class OOMObject {
     }
 
     static class LockThreadObjectT {
-       public static void createBusyThread(){
-            Thread thread=new Thread(new Runnable(){
+        public static void createBusyThread() {
+            Thread thread = new Thread(new Runnable() {
                 @Override
-                public void run(){
-                    while(true);
+                public void run() {
+                    while (true) ;
                 }
-            },"testBusyThread");
+            }, "testBusyThread");
             thread.start();
         }
+
         /**
-         *线程锁等待演示
+         * 线程锁等待演示
          */
-        public static void createLockThread(final Object lock){
-            Thread thread=new Thread(new Runnable(){
+        public static void createLockThread(final Object lock) {
+            Thread thread = new Thread(new Runnable() {
                 @Override
-                public void run(){
-                    synchronized(lock){
-                        try{
+                public void run() {
+                    synchronized (lock) {
+                        try {
                             lock.wait();
-                        }catch(InterruptedException e){
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-            },"testLockThread");
+            }, "testLockThread");
             thread.start();
         }
-        public static void main(String[]args)throws Exception{
-            BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+        public static void main(String[] args) throws Exception {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             br.readLine();
             createBusyThread();
             br.readLine();
-            Object obj=new Object();
+            Object obj = new Object();
             createLockThread(obj);
         }
 
     }
+
+    public static void main(String[] args) {
+        List<Long> list = new ArrayList<>();
+
+        for (long i = 0L; i < 2000L; i++) {
+            list.add(i);
+        }
+        Runnable runnable1 = () -> {
+            for (long i = 2000L; i < 4000L; i++) {
+                list.add(i);
+            }
+        };
+        Runnable runnable2 = () -> {
+            for (long i = 0L; i < 2000L; i++) {
+                list.remove(i);
+            }
+        };
+        Runnable runnable3 = () -> {
+            List<Long> list1 = new ArrayList<>(list);
+            System.out.println(list1.size() + " " + list.size());
+            List<Long> list2 = new ArrayList<>(list);
+            System.out.println(list2.size() + " " + list.size());
+            List<Long> list3 = new ArrayList<>(list);
+            System.out.println(list3.size() + " " + list.size());
+            List<Long> list4 = new ArrayList<>(list);
+            System.out.println(list4.size() + " " + list.size());
+            List<Long> list5 = new ArrayList<>(list);
+            System.out.println(list5.size() + " " + list.size());
+            List<Long> list6 = new ArrayList<>(list);
+            System.out.println(list6.size() + " " + list.size());
+        };
+        Runnable runnable4 = () -> {
+            for (long i = 2000L; i < 4000L; i++) {
+                list.remove(i);
+            }
+        };
+        Runnable runnable5 = () -> {
+            for (long i = 4000L; i < 6000L; i++) {
+                list.add(i);
+            }
+        };
+        Runnable runnable6 = () -> {
+            for (long i = 6000L; i < 8000L; i++) {
+                list.add(i);
+            }
+        };
+        Runnable runnable7 = () -> {
+            for (Long l : list) {
+                System.out.print(l);
+            }
+        };
+        Thread thread1 = new Thread(runnable1);
+        Thread thread2 = new Thread(runnable2);
+        Thread thread3 = new Thread(runnable3);
+        Thread thread4 = new Thread(runnable4);
+        Thread thread5 = new Thread(runnable5);
+        Thread thread6 = new Thread(runnable6);
+        Thread thread7 = new Thread(runnable7);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread7.start();
+        thread4.start();
+        thread5.start();
+        thread6.start();
+
+    }
+
+
 }

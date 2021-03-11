@@ -17,7 +17,8 @@ class NormalLogin {
 
 public class UselessTest {
 
-    private static String test(NormalLogin normalLogin) {
+    private static String
+    test(NormalLogin normalLogin) {
         String service = "default";
         String username = normalLogin.getUsername();
         int typeSplitIndex = normalLogin.getUsername().lastIndexOf("@");
