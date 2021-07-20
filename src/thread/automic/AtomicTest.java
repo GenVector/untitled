@@ -38,4 +38,22 @@ public class AtomicTest {
         System.out.println(Instant.now().toEpochMilli() - start);
         System.out.println(race);
     }
+
+    int c = 1;
+    static int d = 1;
+
+    //基本数据类型不能在线程间共享
+//    public void basicNum() {
+//        int i = 1;
+//        String o1 = new String("1");
+//        final AtomicTest atomicTest = new AtomicTest();
+//        //o1 = "22";
+//        i++;
+//        new Thread(() -> {
+//            AtomicInteger atomicInteger = new AtomicInteger(i);
+//            int b = i + 1;
+//        }).start();
+//    }
+
+
 }

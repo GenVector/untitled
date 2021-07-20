@@ -22,4 +22,5 @@ public class JavaVMStackOOM {
         JavaVMStackOOM oom = new JavaVMStackOOM();
         oom.stackLeakByThread();
     }
-}
+
+    }

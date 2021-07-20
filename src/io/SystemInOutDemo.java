@@ -23,8 +23,9 @@ public class SystemInOutDemo {
         PrintStream old = System.out;
     }
 
-    public static void out() {
+    protected static void out() {
         System.out.println("test out");
         PrintStream old = System.out;
     }
 }
+
