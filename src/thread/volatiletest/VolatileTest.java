@@ -1,12 +1,10 @@
-package thread.volatileTest;
+package thread.volatiletest;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.time.Instant;
 import java.util.Map;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.FutureTask;
 
 /**
  * volatile变量自增运算测试

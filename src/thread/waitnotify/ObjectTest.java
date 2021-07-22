@@ -1,4 +1,4 @@
-package thread.wait;
+package thread.waitnotify;
 /*
     wait\notify test
  */

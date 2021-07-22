@@ -1,4 +1,4 @@
-package thread.volatileTest;
+package thread.volatiletest;
 
 import java.util.HashMap;
 import java.util.concurrent.locks.ReadWriteLock;
