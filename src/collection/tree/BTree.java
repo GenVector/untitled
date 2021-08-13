@@ -169,16 +169,20 @@ public class BTree {
 
     //二叉树镜像
     public static void mirrorRecursively(BTreeNode node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         if (node.getLeft() != null && node.getRight() != null) {
             BTreeNode left = node.getLeft();
             node.setLeft(node.getRight());
             node.setRight(left);
         } else if (node.getLeft() != null) {
             node.setRight(node.getLeft());
+            node.setLeft(null);
         } else if (node.getRight() != null) {
             node.setLeft(node.getRight());
+            node.setRight(null);
+
         }
         mirrorRecursively(node.getLeft());
         mirrorRecursively(node.getRight());
@@ -299,7 +303,7 @@ class Question6 {
     }
 
     /**
-     * 根据先序遍历和中序遍历构建二叉树,并返回跟节点
+     * 根据先序遍历和中序遍历构建二叉树,并返回根节点
      *
      * @param preOrder 先序遍历数据存储的数组
      * @param preStart 先序遍历数组的起始位置

@@ -30,6 +30,7 @@ public class GuavaTest {
         ListenableFuture<Integer> future = gPool.submit(callable);
 //        Futures.addCallback(future, );
 //        future.addListener();
+//        future.addListener();
     }
 
 }
