@@ -120,6 +120,10 @@ public class SortTest {
         arr[parent] = temp;
     }
 
+    public static void mergeSort(int[] a) {
+        mergeSort(a, 0, a.length - 1);
+    }
+
 
     public static void mergeSort(int[] a, int start, int end) {
         if (start < end) {//当子序列中只有一个元素时结束递归
@@ -130,7 +134,7 @@ public class SortTest {
         }
     }
 
-    public static void mergeMid(int arr[], int start, int mid, int end) {
+    public static void mergeMid(int[] arr, int start, int mid, int end) {
         for (int i = start; i < mid; i++) {
             if (arr[i] > arr[mid]) {
                 int tem = arr[i];

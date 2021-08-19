@@ -23,7 +23,7 @@ public class BTree {
         Stack<Integer> stack = new Stack<>();
         leftView(bTree.root);
         System.out.println(stack);
-        posOrder(bTree.root);
+        postOrder(bTree.root);
         System.out.println();
         inOrder(bTree.root);
         //afterOrder(bTree.root);
@@ -122,7 +122,7 @@ public class BTree {
                      80
      */
     //后序遍历
-    public static void posOrder(BTreeNode node) {
+    public static void postOrder(BTreeNode node) {
         if (node == null)
             return;
         System.out.print("后序遍历---");

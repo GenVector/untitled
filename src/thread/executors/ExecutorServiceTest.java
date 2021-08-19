@@ -52,13 +52,13 @@ public class ExecutorServiceTest {
         //既然这样,是不是也可以代替任务调度
         // 在这之前的实现需要依靠Timer和TimerTask或者其它第三方工具来完成。但Timer有不少的缺陷
         //Runnable对象或者Callable对象。会把传入的任务封装成一个RunnableScheduledFuture对象，其实也就是ScheduledFutureTask对象
-        ExecutorService scheduledPool = Executors.newScheduledThreadPool(5);
-        ExecutorService singleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        ((ScheduledExecutorService) scheduledPool).scheduleAtFixedRate(runnable, 100, 10, TimeUnit.HOURS);
-        ((ScheduledExecutorService) scheduledPool).scheduleWithFixedDelay(runnable, 100, 10, TimeUnit.HOURS);
+        ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(5);
+        scheduledPool.scheduleAtFixedRate(runnable, 100, 10, TimeUnit.HOURS);
+        scheduledPool.scheduleWithFixedDelay(runnable, 100, 10, TimeUnit.HOURS);
         //FutureTask;
         //Callable;
 
+        ExecutorService singleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 
         //固定大小的线程池
         //核心线程池大小和最大线程池大小均为5

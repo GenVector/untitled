@@ -4,10 +4,9 @@ import java.util.Stack;
 
 public class MaxSubArr {
     public static void main(String[] args) {
-        int[] arr = {1, -1, 15, -36, -9, 13, -45, 9, 15, -1, 2, 4, -5, -2};
+        int[] arr = {1, -1, 15, -36, -9, 13, -45, 9, 15, -1, 2, 4, -5, 61};
         getMax(arr);
         int[] arr1 = {1, 5, 6, 7, 9, 2, 4, 8, 10, 13, 14};
-
     }
 
     //最大子数组
@@ -34,8 +33,9 @@ public class MaxSubArr {
             //如果小于0，则越加越小
             if (sum < 0)
                 sum = arr[i];
-            else
+            else{
                 sum += arr[i];
+            }
             if (sum > MAX)
                 MAX = sum;
         }
