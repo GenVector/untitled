@@ -245,13 +245,11 @@ public class BTree {
 
     private static void findPath(BTreeNode node, int k, Stack<Integer> path) {
         if (node == null) return;
-//		if(node.getLeftNode()==null&&node.getRightNode()==null) {
         if (node.getData() == k) {
             System.out.println("路径开始");
             for (int i : path)
                 System.out.print(i + ",");
             System.out.println(node.getData());
-//			}
         } else if (node.getData() < k) {
             path.push(node.getData());
             findPath(node.getLeft(), k - node.getData(), path);

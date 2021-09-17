@@ -7,10 +7,13 @@ import static codeTest.dongtaiguihua.pailiezuhe.mergeMid;
 
 public class SortTest {
     public static void main(String[] args) {
-        int[] arr = {0, 5, 19, 2, 15, 44, 3, 17, 4, 6, 10, 8, 17};
-        //heapSort(arr);
-        mergeSort(arr, 0, arr.length - 1);
-        Arrays.stream(arr).forEach(System.out::println);
+        int[] arr = {0, 5, 19, 2, 15, 44, 3, 17, 4, 6, 10, 8, 17, 99, 87};
+        heapSort(arr);
+        //mergeSort(arr, 0, arr.length - 1);
+        //Arrays.stream(arr).forEach(num -> System.out.print(num + " | "));
+        for (int i = 0; i < 100000; i++) {
+            System.out.println(i + " + " + System.currentTimeMillis());
+        }
     }
 
     //冒泡排序
@@ -60,14 +63,25 @@ public class SortTest {
     }
 
     /*
-        在数组（在0号下标存储根节点）中，容易得到下面的式子（这两个式子很重要）：
+        在数组（在0号下标存储根节点）中，容易得到下面的式子
                1.下标为i的节点，父节点坐标为(i-1)/2；
+
                2.下标为i的节点，左子节点坐标为2*i+1，右子节点为2*i+2。
+               left = parent * 2 + 1
+               right = parent * 2 + 2
+               3. index从0开始。所以第一个子叶节点的角标为(arr.length - 1) / 2
+               4. 最大的非子叶节点的 index 为 (arr.length) / 2 - 1
     */
+
+    public static int getLeft(int parent) {
+        return 2 * parent + 1;
+    }
+
     //堆排序
     private static void heapSort(int[] arr) {
         //创建堆
-        for (int i = (arr.length - 1) / 2; i >= 0; i--) {
+        //完全二叉树字节节点数量为 (length +1)/2
+        for (int i = (arr.length) / 2 - 1; i >= 0; i--) {
             //从第一个非叶子结点从下至上，从右至左调整结构
             adjustHeap(arr, i, arr.length);
         }
@@ -82,10 +96,6 @@ public class SortTest {
             //重新对堆进行调整
             adjustHeap(arr, 0, i);
         }
-    }
-
-    public static int getLeft(int parent) {
-        return 2 * parent + 1;
     }
 
     /**
@@ -115,7 +125,7 @@ public class SortTest {
             arr[parent] = arr[lChild];
             //选取孩子结点的左孩子结点,继续向下筛选
             parent = lChild;
-            lChild = 2 * lChild + 1;
+            lChild = getLeft(lChild);
         }
         arr[parent] = temp;
     }
@@ -125,6 +135,7 @@ public class SortTest {
     }
 
 
+    //并归排序
     public static void mergeSort(int[] a, int start, int end) {
         if (start < end) {//当子序列中只有一个元素时结束递归
             int mid = (start + end) / 2;//划分子序列
@@ -193,6 +204,7 @@ public class SortTest {
         int mid = (left + right) / 2;
         merge(arr, left, mid);
         merge(arr, mid + 1, right);
-        //merge(arr, left, mid, right);
+        mergeMid(arr, left, mid + 1, right);
     }
+
 }
